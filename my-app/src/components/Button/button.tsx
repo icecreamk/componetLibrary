@@ -1,4 +1,4 @@
-import React, {FC} from 'react'
+import React, {FC, ButtonHTMLAttributes, AnchorHTMLAttributes} from 'react'
 import classNames from 'classnames'
 
 export enum ButtonSize {
@@ -21,7 +21,12 @@ interface BaseButtonProps {
   href?: string;
 }
 
-export const Button: FC<BaseButtonProps> = (props) => {
+// &用于取交集  Partial用于将所有属性设置为可选
+type NativeButtonProps = BaseButtonProps & ButtonHTMLAttributes<HTMLElement>
+type AnchorButtonProps = BaseButtonProps & AnchorHTMLAttributes<HTMLElement>
+export type ButtonProps = Partial<NativeButtonProps & AnchorButtonProps>
+
+export const Button: FC<ButtonProps> = (props) => {
   const { 
     btnType,
     className,
