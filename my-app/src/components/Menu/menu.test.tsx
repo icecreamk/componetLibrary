@@ -2,6 +2,7 @@ import React from 'react'
 import { render, RenderResult, fireEvent, wait } from '@testing-library/react'
 import Menu, {MenuProps} from './menu'
 import MenuItem from './menuItem'
+import SubMenu from './subMenu'
 const testProps: MenuProps = {
   defaultIndex: '0',
   onSelect: jest.fn(),
@@ -24,6 +25,16 @@ const generateMenu = (props: MenuProps) => {
       <MenuItem>
         xyz
       </MenuItem>
+      <SubMenu title="dropdown">
+        <MenuItem>
+          drop1
+        </MenuItem>
+      </SubMenu>
+      <SubMenu title="opened">
+        <MenuItem>
+          opened1
+        </MenuItem>
+      </SubMenu>
     </Menu>
   )
 }
@@ -53,7 +64,7 @@ describe('test Menu and MenuItem component in default(horizontal) mode', () => {
   it('should render correct Menu and MenuItem based on default props', () => {
     expect(menuElement).toBeInTheDocument()
     expect(menuElement).toHaveClass('viking-menu test')
-    expect(menuElement.querySelectorAll('li').length).toEqual(3)
+    expect(menuElement.querySelectorAll(':scope > li').length).toEqual(5)
     expect(activeElement).toHaveClass('menu-item is-active')
     expect(disabledElement).toHaveClass('menu-item is-disabled')
   })
@@ -67,6 +78,20 @@ describe('test Menu and MenuItem component in default(horizontal) mode', () => {
     expect(disabledElement).not.toHaveClass('is-active')
     expect(testProps.onSelect).not.toHaveBeenCalledWith('1')
   })
+  it('should show dropdown items when hover on subMenu', async () => {
+    expect(wrapper.queryByText('drop1')).not.toBeVisible()
+    const dropdownElement = wrapper.getByText('dropdown')
+    fireEvent.mouseEnter(dropdownElement)
+    await wait(() => {
+      expect(wrapper.queryByText('drop1')).toBeVisible()
+    })
+    fireEvent.click(wrapper.getByText('drop1'))
+    expect(testProps.onSelect).toHaveBeenCalledWith('3-0')
+    fireEvent.mouseLeave(dropdownElement)
+    await wait(() => {
+      expect(wrapper.queryByText('drop1')).not.toBeVisible()
+    })
+  })
 })
 describe('test Menu and MenuItem component in vertical mode', () => {
   beforeEach(() => {
@@ -76,5 +101,14 @@ describe('test Menu and MenuItem component in vertical mode', () => {
   it('should render vertical mode when mode is set to vertical', () => {
     const menuElement = wrapper2.getByTestId('test-menu')
     expect(menuElement).toHaveClass('menu-vertical')
+  })
+  it('should show dropdown items when click on subMenu for vertical mode', () => {
+    const dropDownItem = wrapper2.queryByText('drop1')
+    expect(dropDownItem).not.toBeVisible()
+    fireEvent.click(wrapper2.getByText('dropdown'))
+    expect(dropDownItem).toBeVisible()
+  })
+  it('should show subMenu dropdown when defaultOpenSubMenus contains SubMenu index', () => {
+    expect(wrapper2.queryByText('opened1')).toBeVisible()
   })
 })
