@@ -46,16 +46,17 @@ export const Menu: FC<MenuProps> = (props) => {
       const childElement = child as React.FunctionComponentElement<MenuItemProps>
       const { displayName } = childElement.type
       if (displayName === 'MenuItem' || displayName === 'SubMenu') {
-        // return React.cloneElement(childElement, {
-        //   index: index.toString()
-        // })
-        return childElement
+        return React.cloneElement(childElement, {
+          index: index.toString()
+        })
+        // return childElement
       } else {
         console.error("Warning: Menu has a child which is not a MenuItem component")
       }
     })
   }
   return (
+    // data-testid 用于单元测试
     <ul className={classes} style={style} data-testid="test-menu">
       <MenuContext.Provider value={passedContext}>
         {renderChildren()}
