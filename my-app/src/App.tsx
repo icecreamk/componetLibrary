@@ -2,6 +2,7 @@ import React from 'react';
 import Button from './components/Button/button'
 import Menu from './components/Menu/menu'
 import MenuItem from './components/Menu/menuItem'
+import SubMenu from './components/Menu/subMenu'
 
 function App() {
   return (
@@ -18,13 +19,21 @@ function App() {
           <Button btnType={'primary'} size={'sm'}>Primary</Button>
       </div>
       <div>
-        <Menu defaultIndex={'0'}>
-          <MenuItem index={'0'}>
+        <Menu defaultIndex={'2-1'} mode="vertical" defaultOpenSubMenus={['2']}>
+          <MenuItem>
             1
           </MenuItem>
-          <MenuItem index={'1'}>
+          <MenuItem>
             2
           </MenuItem>
+          <SubMenu title="dropdown">
+            <MenuItem>
+              1
+            </MenuItem>
+            <MenuItem>
+              2
+            </MenuItem>
+          </SubMenu>
         </Menu>
       </div>
     </div>

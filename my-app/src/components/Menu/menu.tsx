@@ -1,4 +1,4 @@
-import React, { FC, useState, createContext, CSSProperties, cloneElement } from 'react'
+import React, { FC, useState, createContext, CSSProperties } from 'react'
 import classNames from 'classnames'
 import { MenuItemProps } from './menuItem'
 
@@ -49,14 +49,12 @@ export const Menu: FC<MenuProps> = (props) => {
         return React.cloneElement(childElement, {
           index: index.toString()
         })
-        // return childElement
       } else {
         console.error("Warning: Menu has a child which is not a MenuItem component")
       }
     })
   }
   return (
-    // data-testid 用于单元测试
     <ul className={classes} style={style} data-testid="test-menu">
       <MenuContext.Provider value={passedContext}>
         {renderChildren()}
