@@ -1,4 +1,6 @@
 import React from 'react';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faCoffee} from '@fortawesome/free-solid-svg-icons'
 import Button from './components/Button/button'
 import Menu from './components/Menu/menu'
 import MenuItem from './components/Menu/menuItem'
@@ -8,6 +10,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header" />
+      <FontAwesomeIcon icon={faCoffee} />
       <div>
         <p>类型</p>
           <Button onClick={() => {console.log(1)}} btnType={'primary'}>Primary</Button>
@@ -19,7 +22,7 @@ function App() {
           <Button btnType={'primary'} size={'sm'}>Primary</Button>
       </div>
       <div>
-        <Menu defaultIndex={'2-1'} mode="vertical" defaultOpenSubMenus={['2']}>
+        <Menu defaultIndex={'2-1'} mode="horizontal" defaultOpenSubMenus={['2']}>
           <MenuItem>
             1
           </MenuItem>

@@ -8,3 +8,8 @@
 
 #### 支持typescript
 > npm install @types/classnames --save
+
+
+### icon方案
+- font icon (只支持设置字符相关的css属性、需要额外下载字体文件)
+- svg (支持设置所有css属性)
