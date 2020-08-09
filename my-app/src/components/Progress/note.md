@@ -30,3 +30,17 @@ tsconfig.build.json
 ### npm link
 解决：
 当组件项目更新并发布后，本地引用该组件的项目需要重新npm install 安装
+
+### npm命令行
+- npm adduser 注册
+- npm publish 发布
+
+### cross-env (跨平台设置环境变量)
+
+### husky commit和push之前进行检查
+
+### CI 持续集成
+
+### CD 持续交付、持续部署
+
+### travis.yml
